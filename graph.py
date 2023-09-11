@@ -14,7 +14,9 @@ import networkx as nx
 #     'Classes'
 # ])
 
-# some arbitrary prereqs I made
+node_to_learn = input("Concept to learn: ")
+
+# arbitrary prereqs
 G = nx.DiGraph([
     ('Data Types', 'Branching'),
     ('Branching', 'Conditionals'),
@@ -24,19 +26,13 @@ G = nx.DiGraph([
     ('Functions', 'Recursion'),
 ])
 
-visited = [] # searched nodes
-node_to_learn = input()
-
-# DFS this graph, pre-order traversal over post for no reason really
-# nodes = nx.dfs_preorder_nodes(G, node_to_learn)
-
-# print(f"Topics to learn in order to learn {node_to_learn}:")
-# for node in nodes:
-#     if not node == node_to_learn:
-#         print(node)
-
 for sequence in list(nx.all_topological_sorts(G)):
     print(sequence)
+
+    # print(f"Topics to learn in order to learn {node_to_learn}:")
+    # for node in nodes:
+    #     if not node == node_to_learn:
+    #         print(node)
 
 # predecessors/parent nodes: https://networkx.org/documentation/stable/reference/classes/generated/networkx.DiGraph.predecessors.html
 # successor/child nodes: https://networkx.org/documentation/networkx-1.10/reference/generated/networkx.DiGraph.successors.html 
