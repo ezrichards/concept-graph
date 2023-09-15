@@ -1,24 +1,11 @@
 import networkx as nx
 
-# G.add_nodes_from([
-#     'Variables & Operators',
-#     'Data Types',
-#     'Branching',
-#     'Conditionals',
-#     'While Loops',
-#     'For Loops',
-#     'Nested Logic',
-#     'Functions',
-#     'File I/O',
-#     'Recursion',
-#     'Classes'
-# ])
-
 node_to_learn = input("Concept to learn: ")
 
 # arbitrary prereqs
 G = nx.DiGraph([
     ('Data Types', 'Branching'),
+    ('Data Types', 'Variables'),
     ('Branching', 'Conditionals'),
     ('Variables & Operators', 'Functions'),
     ('Data Types', 'Functions'),
@@ -29,13 +16,16 @@ G = nx.DiGraph([
 for sequence in list(nx.all_topological_sorts(G)):
     print(sequence)
 
-    # print(f"Topics to learn in order to learn {node_to_learn}:")
-    # for node in nodes:
-    #     if not node == node_to_learn:
-    #         print(node)
+print("Descendants:", nx.descendants(G, 'Recursion'))
+print("Ancestors:", nx.ancestors(G, 'Recursion'))
 
-# predecessors/parent nodes: https://networkx.org/documentation/stable/reference/classes/generated/networkx.DiGraph.predecessors.html
-# successor/child nodes: https://networkx.org/documentation/networkx-1.10/reference/generated/networkx.DiGraph.successors.html 
+print('In degree at Functions:', G.in_degree('Functions'))
+print('In degree at Functions:', G.out_degree('Functions'))
+
+# print(f"Topics to learn in order to learn {node_to_learn}:")
+# for node in best_sequence:
+#     if not node == node_to_learn:
+#         print(node)
 
 # DRAWING CODE
 # import matplotlib.pyplot as plt
