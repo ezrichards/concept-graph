@@ -13,19 +13,38 @@ G = nx.DiGraph([
     ('Functions', 'Recursion'),
 ])
 
+sequences = {}
+best_sequence = None
+
 for sequence in list(nx.all_topological_sorts(G)):
     print(sequence)
 
+    synthesis_rating = 0 # metric of how many in degrees are present
+    foundation_rating = 0 # metric of how many out degrees are present
+
+    for node in sequence:
+        print()
+        print("NODE N", node)
+        print(f"in degree of {node}:", G.in_degree(node))
+        print(f"out degree of {node}:", G.out_degree(node))
+        print()
+
+        synthesis_rating += G.in_degree(node)
+        foundation_rating += G.out_degree(node)
+
+    print("SYNTHESIS:", synthesis_rating)
+    print("FOUNDATIONS:", foundation_rating)
+
+# TODO uninclude ancestor nodes?
 print("Descendants:", nx.descendants(G, 'Recursion'))
 print("Ancestors:", nx.ancestors(G, 'Recursion'))
 
-print('In degree at Functions:', G.in_degree('Functions'))
-print('In degree at Functions:', G.out_degree('Functions'))
-
-# print(f"Topics to learn in order to learn {node_to_learn}:")
-# for node in best_sequence:
-#     if not node == node_to_learn:
-#         print(node)
+# TODO update this, hardcoded for now
+best_sequence = ['Data Types', 'Variables & Operators', 'Branching', 'Variables', 'Conditionals', 'Functions', 'Recursion']
+print(f"Sequence of topics to learn in order to learn {node_to_learn}:")
+for node in best_sequence:
+    if not node == node_to_learn:
+        print(node)
 
 # DRAWING CODE
 # import matplotlib.pyplot as plt
