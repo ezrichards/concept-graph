@@ -1,0 +1,120 @@
+---
+title: Hash Set as Hanging Folders
+author: colleen
+ProgrammingLanguage: Java
+ProgrammingParadigm: imperative
+ConceptualAdvantage: Explains need for hashCode() and equals() methods when using HashSet
+Form: Analogy
+DrawsAttentionTo: Need for .hashCode() and .equals(Object o) methods
+UseWhen: Teaching students to use the built-in HashSet Java library class
+Cost: Used in class for ~10 minutes, but requires having a file folder bin
+OriginSource: Own practice
+image: HashSetAsHangingFolders2.jpg
+Mapping:
+  HashSet: "Box of hanging folders"
+  bucket: "Single file folder"
+  key: "Piece of paper in a file folder"
+  value: "N/A (HashSet, not HashMap)"
+  "add(key) method": "Find correct folder, check if the folder already contains the key by comparing the key to all contents of the folder"
+Topic: "Other"
+---
+
+<p>
+  <b>Instructional Context:</b> I teach a post-secondary course in which students learn about data structures and learn to program in Java and Racket. My lectures are twice a week for 75 minutes. My enrollment ranges from 50 to 150 students in each lecture section. I typically lecture for 5 to 10 minutes and then have students work in pairs to try to apply the newly introduce idea. 
+</p>
+<p>
+  <b>Use Why:</b> I find that students think Hash Tables are baffling. It isn't that they have trouble <i>using</i> them, but they report not understanding them. I don't have a perfect explaination for what they think they don't understand, but since I've started using this technique, I've stopped getting the complaints that "Hash Tables make no sense!" Maybe the problem was just that I wasn't explaining them very well before! 
+</p>
+<p>
+  <b>Learning Goal: </b> This explanation is focused on helping students to understand <i>why</i> we need to provide a <code>hashCode()</code> and <code>equals(Object o)</code> when they work with the library class <code>HashSet</code> in Java. In getting at <i>why</i> we need these it also introduces <i>how</i> a <code>HashSet</code> in Java works (assuming chaining), but I don't test students on <i>how</i> a <code>HashSet</code> works. 
+</p>
+<p>
+  <b>Why HashSet and not HashMap?: </b> I just start with <code>HashSet</code> because it is simpler. I find that students don't have trouble translating what they learned to understand <code>HashMap</code> in Java. 
+</p>
+<p>
+  <b>Instructional Sequence Overview:</b> I trace through what would happen with the following code that attempts to add 7 <code>Strings</code> to a <code>HashSet</code>. First, the code will add 3 <code>String</code>s (<code>"Bear" "Zebra" "Tiger"</code>) that each go in different buckets (i.e., folders). Second, we'll try to add something that's already in the <code>HashSet</code>. Finally, then we'll add three <code>String</code>s (<code>"Orange" "Dog" "Zoo"</code>) that all go in the same bucket (i.e., folder). This allows students to see a collision where the item is <code>.equals</code> and two where they are not. 
+</p> 
+<pre>
+import java.util.HashSet;
+public class FileFolderHashSet {
+  public static void main(String[] args) {
+    HashSet<String> folders = new HashSet<String>();
+    folders.add("Bear");
+    folders.add("Zebra");
+    folders.add("Tiger");
+    folders.add("Bear");
+    folders.add("Orange");
+    folders.add("Dog");
+    folders.add("Zoo");
+  }
+}
+</pre>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/TcKtHzDe6Qo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<p>
+  <b>Tracing one call to the <code>add</code> method:</b> This involves going through the following numbered steps. The first time I trace <code>add</code> I say all of the bullets under each step. Tracing through the <code>add</code> method after the first time, I still do each step, but I don't say all of the bullets.
+  <ol> 
+      <li>Read a line of code from the class <code>FileFolderHashSet</code> above (e.g., <code>folders.add("Bear");</code>).
+          <ul>
+              <li><i>I'm a <code>HashSet</code> named <code>folder</code> and someone wants to add the <code>String "Bear"</code>.</i></li>
+          </ul>
+      </li>
+      <li> Write the <code>String</code> on a piece of paper.
+          <ul>
+              <li>Here's the <code>String</code> that I need to store, but I need a reliable way to remember where I put it.</li>
+	      <li>First, I need to know what <code>hashCode()</code> returns for the <code>String "Bear"</code>.</li>
+          </ul>
+      </li>
+      <li>Modify the code in the class <code>HashCodeTest</code> below (e.g., <code>String s = "Bear";</code>).
+          <ul>
+              <li>The <code>add</code> method in the <code>HashSet</code> class always calls <code>hashCode()</code> on the object it was passed.</li>
+	      <li>We'll use the <code>HashCodeTest</code> class to figure out what <code>hashCode()</code> would return for the <code>String "Bear"</code>.</li>
+          </ul>
+      </li>
+      <li>Run the code in the class <code>HashCodeTest</code> to get a value for the call to <code>hashCode()</code>.
+          <ul>
+              <li>The program printed: "<code>hashCode of "Bear" is 2066388</code>"</li>
+	      <li>Remember, I want to store the <code>String "Bear"</code>, but I need to remember where I put it. </li> 
+	      <li>I have 10 folders, so I'll use the last digit of the <code>hashCode</code> to decide what folder to put it in.</li>
+	      <li>I could have used a different scheme as long as I was consistent!</li>
+          </ul>
+      </li>
+      <li>Pull out the relevant folder (e.g., folder 8 for <code>"Bear"</code>). 
+          <ul>
+              <li>I want to store the <code>String "Bear"</code> here, but I need to make sure I haven't already stored the <code>String "Bear"</code>.</li>
+          </ul>
+      </li>
+      <li>If the folder is empty, add the piece of paper with the <code>String</code> written on it. 
+          <ul>
+              <li>Cool - I don't have anything in this folder. I can just add it.</li>
+	      <li>What's most important is that I have a repeatable process so I coudl find it again.</li>
+          </ul>
+      </li>
+      <li>If the folder is not empty, pull out all of the papers from the relevant folder. 
+          <ul> 
+              <li>Okay - I need look at each paper and call <code>.equals</code> with it to see if I have already added it. If it’s no already there, I add the new paper.</li>
+          </ul>
+      </li>
+</ol>
+</p>
+
+<pre>
+public class HashCodeTest {
+	public static void main(String[] args) {
+		String s = "Bear";
+		System.out.println("hashCode of \"" + s + "\" is " + s.hashCode());
+	}
+}
+</pre>
+<p><b><code>HashCode</code> values</b> Here are the values returned for each <code>String</code> as printed by the class <code>HashCodeTest</code>:
+<ul>
+	<li><code>hashCode of "Bear" is 2066388</code></li>
+	<li><code>hashCode of "Zebra" is 86223590</code></li>
+	<li><code>hashCode of "Tiger" is 80806047</code></li>
+	<li><code>hashCode of "Orange" is -1924984242</code></li>
+	<li><code>hashCode of "Dog" is 68892</code></li>
+	<li><code>hashCode of "Zoo" is 90042</code></li>
+</ul>
+
+
