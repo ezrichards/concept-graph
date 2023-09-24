@@ -40,38 +40,45 @@ G = nx.DiGraph([
     # ('Functions', 'Files'),
 ])
 
-# Find all simple paths from any node to 'A'
-valid_paths_to_A = list(nx.all_simple_paths(G, source='Data Types', target=node_to_learn))
-print(valid_paths_to_A)
+from dataclasses import dataclass
 
-sequences = {}
-best_sequence = None
+@dataclass
+class Sequence:
+    synthesis_rating: int = 0
+    foundation_rating: int = 0
+    path = None
+
+    def __init__(self, synthesis_rating, foundation_rating, path):
+        self.synthesis_rating = synthesis_rating
+        self.foundation_rating = foundation_rating
+        self.path = path
+
+sequences = []
+
+simple_paths = list(nx.all_simple_paths(G, source='Data Types', target=node_to_learn))
+for path in simple_paths:
+    synthesis_rating = 0 # metric of how many in degrees are present
+    foundation_rating = 0 # metric of how many out degrees are present
+
+    for node in path:
+        synthesis_rating += G.in_degree(node)
+        foundation_rating += G.out_degree(node)
+    
+    sequences.append(Sequence(synthesis_rating, foundation_rating, path))
+
+best_sequence = None # TODO decide best sequence
+
+for sequence in sequences:
+    print(sequence.path)
+    print("SYNTHESIS:", sequence.synthesis_rating)
+    print("FOUNDATION:", sequence.foundation_rating)
+    print("PATH LEN:", len(sequence.path))
+    print()
 
 for sequence in list(nx.all_topological_sorts(G)):
     print(sequence)
 
-    # TODO speed/length rating is len(sequence) (simple path, not top sort)
-    synthesis_rating = 0 # metric of how many in degrees are present
-    foundation_rating = 0 # metric of how many out degrees are present
-
-    for node in sequence:
-        print(node)
-        print(f"in degree of {node}:", G.in_degree(node))
-        print(f"out degree of {node}:", G.out_degree(node))
-        print()
-
-        synthesis_rating += G.in_degree(node)
-        foundation_rating += G.out_degree(node)
-
-# print("Ancestors:", nx.ancestors(G, 'Recursion')) # TODO uninclude ancestor nodes?
-
-# best_sequence = ['Data Types', 'Variables & Operators', 'Branching', 'Variables', 'Conditionals', 'Functions', 'Recursion']
-# print(f"Sequence of topics to learn in order to learn {node_to_learn}:")
-# for node in best_sequence:
-#     if not node == node_to_learn:
-#         print(node)
-
-# draw the graph
+# Draw the graph
 plt.figure(figsize=(12, 12), dpi=150)
 nx.draw_planar(
     G,
