@@ -1,5 +1,16 @@
 import networkx as nx
 import matplotlib.pyplot as plt
+from nm_data import notional_machines
+
+def get_nm_topics() -> list[str]:
+    return list(set([notional_machines[notional_machine]['Topic'] for notional_machine in notional_machines]))
+
+def get_nms_by_topic(topic: str) -> list[str]:
+    found_nms = []
+    for notional_machine in notional_machines:
+        if topic == notional_machines[notional_machine]['Topic']:
+            found_nms.append(notional_machine)
+    return found_nms
 
 node_to_learn = input("Concept to learn: ")
 
