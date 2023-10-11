@@ -1,0 +1,53 @@
+digraph {
+   rankdir=LR;
+
+   # data types
+   "Integer" -> "Data Types" [color=red,penwidth=2.0];
+   "Float" -> "Data Types" [color=red,penwidth=2.0];
+   "String" -> "Data Types" [color=red,penwidth=2.0];
+   "Boolean" -> "Data Types" [color=red,penwidth=2.0];
+
+   # nodes into variables
+   "Data Types" -> "Variables" [ label="prerequisiteTo",color=red,penwidth=2.0 ];
+   "Operators" -> "Variables" [ label="prerequisiteTo" ];
+   "Expressions" -> "Variables" [ label="softPrerequisiteTo" ];
+   "Assignment" -> "Variables" [ label="softPrerequisiteTo" ];
+
+   # nodes away from variables
+   "Variables" -> "Functions" [ label="prerequisiteTo", color=red,penwidth=2.0 ];
+   "Variables" -> "Control Flow" [ label="prerequisiteTo" ];
+   "Variables" -> "Loops" [ label="prerequisiteTo" ];
+   
+   # functions
+   "Functions" -> "Objects" [ label="prerequisiteTo" ];
+   "Functions" -> "Recursion" [ label="prerequisiteTo" ];
+   "Functions" -> "Methods" [ label="prerequisiteTo" ];
+   
+   "Methods" -> "Objects" [ label="prerequisiteTo" ];
+
+   # functions children
+   "Return values" -> "Functions";
+   "Parameters" -> "Functions";
+   "Calls" -> "Functions";
+   "Main" -> "Functions";
+
+   # loops children
+   "While" -> "Loops"
+   "For" -> "Loops"
+
+   # control flow children
+   "if" -> "Control Flow"
+   "elif" -> "Control Flow"
+   "else" -> "Control Flow"
+
+   # objects & classes
+   "Objects" -> "Classes" [ label="prerequisiteTo" ];
+   "Classes" -> "Inheritance" [ label="prerequisiteTo" ];
+   
+   # data structures
+   "Lists" -> "Data Structures"
+   "Dictionaries" -> "Data Structures"
+   "Tuples" -> "Data Structures"
+
+   "Data Types" -> "Data Structures" [ label="softPrerequisiteTo" ];
+}
