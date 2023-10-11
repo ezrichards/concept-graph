@@ -1,15 +1,16 @@
+# the 'root' sequence which produces FunctionsSequence1 and FunctionsSequence2
 digraph {
    # rankdir=LR;
 
    # nodes into variables
-   "Data Types" -> "Variables" [ label="prerequisiteTo",color=red,penwidth=2.0  ];
+   "Data Types" -> "Variables" [ label="prerequisiteTo" ];
    "Data Types" -> "Expressions" [ label="prerequisiteTo" ];
    "Expressions" -> "Variables" [ label="softPrerequisiteTo" ];
 
    # nodes away from variables
-   "Variables" -> "Functions" [ label="prerequisiteTo",color=red,penwidth=2.0 ];
-   "Variables" -> "Control Flow" [ label="prerequisiteTo" ];
    "Control Flow" -> "Functions" [ label="prerequisiteTo" ];
+   "Variables" -> "Functions" [ label="prerequisiteTo" ];
+   "Variables" -> "Control Flow" [ label="prerequisiteTo" ];
    
    ### ignoring children because we don't have enough space
 

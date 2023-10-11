@@ -1,53 +1,32 @@
 digraph {
-   rankdir=LR;
-
-   # data types
-   "Integer" -> "Data Types";
-   "Float" -> "Data Types";
-   "String" -> "Data Types";
-   "Boolean" -> "Data Types";
+   # rankdir=LR;
 
    # nodes into variables
    "Data Types" -> "Variables" [ label="prerequisiteTo" ];
-   "Operators" -> "Variables" [ label="prerequisiteTo" ];
-   "Expressions" -> "Variables" [ label="softPrerequisiteTo" ];
-   "Assignment" -> "Variables" [ label="softPrerequisiteTo" ];
+   "Data Types" -> "Expressions" [ label="prerequisiteTo",color=blue,penwidth=2.0 ];
+   "Expressions" -> "Variables" [ label="softPrerequisiteTo",color=blue,penwidth=2.0 ];
 
    # nodes away from variables
-   "Variables" -> "Functions" [ label="prerequisiteTo" ];
+   "Variables" -> "Functions" [ label="prerequisiteTo",color=red,penwidth=2.0 ];
    "Variables" -> "Control Flow" [ label="prerequisiteTo" ];
-   "Variables" -> "Loops" [ label="prerequisiteTo" ];
+   "Control Flow" -> "Functions" [ label="prerequisiteTo" ];
    
-   # functions
-   "Functions" -> "Objects" [ label="prerequisiteTo" ];
-   "Functions" -> "Recursion" [ label="prerequisiteTo" ];
-   "Functions" -> "Methods" [ label="prerequisiteTo" ];
-   
-   "Methods" -> "Objects" [ label="prerequisiteTo" ];
+   ### ignoring children because we don't have enough space
+
+   # data types children
+   #"Integer" -> "Data Types";
+   #"Float" -> "Data Types";
+   #"String" -> "Data Types";
+   #"Boolean" -> "Data Types";
 
    # functions children
-   "Return values" -> "Functions";
-   "Parameters" -> "Functions";
-   "Calls" -> "Functions";
-   "Main" -> "Functions";
-
-   # loops children
-   "While" -> "Loops"
-   "For" -> "Loops"
+   #"Return values" -> "Functions";
+   #"Parameters" -> "Functions";
+   #"Calls" -> "Functions";
+   #"Main" -> "Functions";
 
    # control flow children
-   "if" -> "Control Flow"
-   "elif" -> "Control Flow"
-   "else" -> "Control Flow"
-
-   # objects & classes
-   "Objects" -> "Classes" [ label="prerequisiteTo" ];
-   "Classes" -> "Inheritance" [ label="prerequisiteTo" ];
-   
-   # data structures
-   "Lists" -> "Data Structures"
-   "Dictionaries" -> "Data Structures"
-   "Tuples" -> "Data Structures"
-
-   "Data Types" -> "Data Structures" [ label="softPrerequisiteTo" ];
+   #"if" -> "Control Flow"
+   #"elif" -> "Control Flow"
+   #"else" -> "Control Flow"
 }
