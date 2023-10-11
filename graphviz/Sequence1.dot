@@ -8,22 +8,22 @@ digraph {
    "Boolean" -> "Data Types" [color=red,penwidth=2.0];
 
    # nodes into variables
-   "Data Types" -> "Variables" [ label="prerequisiteTo",color=red,penwidth=2.0 ];
-   "Operators" -> "Variables" [ label="prerequisiteTo" ];
-   "Expressions" -> "Variables" [ label="softPrerequisiteTo" ];
-   "Assignment" -> "Variables" [ label="softPrerequisiteTo" ];
+   "Data Types" -> "Variables" [ label="hasPrerequisite",color=red,penwidth=2.0 ];
+   "Operators" -> "Variables" [ label="hasPrerequisite" ];
+   "Expressions" -> "Variables" [ label="hasSoftPrerequisite" ];
+   "Assignment" -> "Variables" [ label="hasSoftPrerequisite" ];
 
    # nodes away from variables
-   "Variables" -> "Functions" [ label="prerequisiteTo", color=red,penwidth=2.0 ];
-   "Variables" -> "Control Flow" [ label="prerequisiteTo" ];
-   "Variables" -> "Loops" [ label="prerequisiteTo" ];
+   "Variables" -> "Functions" [ label="hasPrerequisite", color=red,penwidth=2.0 ];
+   "Variables" -> "Control Flow" [ label="hasPrerequisite" ];
+   "Variables" -> "Loops" [ label="hasPrerequisite" ];
    
    # functions
-   "Functions" -> "Objects" [ label="prerequisiteTo" ];
-   "Functions" -> "Recursion" [ label="prerequisiteTo" ];
-   "Functions" -> "Methods" [ label="prerequisiteTo" ];
+   "Functions" -> "Objects" [ label="hasPrerequisite" ];
+   "Functions" -> "Recursion" [ label="hasPrerequisite" ];
+   "Functions" -> "Methods" [ label="hasPrerequisite" ];
    
-   "Methods" -> "Objects" [ label="prerequisiteTo" ];
+   "Methods" -> "Objects" [ label="hasPrerequisite" ];
 
    # functions children
    "Return values" -> "Functions";
@@ -41,13 +41,13 @@ digraph {
    "else" -> "Control Flow"
 
    # objects & classes
-   "Objects" -> "Classes" [ label="prerequisiteTo" ];
-   "Classes" -> "Inheritance" [ label="prerequisiteTo" ];
+   "Objects" -> "Classes" [ label="hasPrerequisite" ];
+   "Classes" -> "Inheritance" [ label="hasPrerequisite" ];
    
    # data structures
    "Lists" -> "Data Structures"
    "Dictionaries" -> "Data Structures"
    "Tuples" -> "Data Structures"
 
-   "Data Types" -> "Data Structures" [ label="softPrerequisiteTo" ];
+   "Data Types" -> "Data Structures" [ label="hasSoftPrerequisite" ];
 }
