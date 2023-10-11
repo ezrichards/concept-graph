@@ -2,14 +2,14 @@ digraph {
    # rankdir=LR;
 
    # nodes into variables
-   "Data Types" -> "Variables" [ label="prerequisiteTo" ];
+   "Data Types" -> "Variables" [ label="prerequisiteTo",color=blue,penwidth=2.0 ];
    "Data Types" -> "Expressions" [ label="prerequisiteTo",color=blue,penwidth=2.0 ];
    "Expressions" -> "Variables" [ label="softPrerequisiteTo",color=blue,penwidth=2.0 ];
 
    # nodes away from variables
-   "Variables" -> "Functions" [ label="prerequisiteTo",color=red,penwidth=2.0 ];
-   "Variables" -> "Control Flow" [ label="prerequisiteTo" ];
-   "Control Flow" -> "Functions" [ label="prerequisiteTo" ];
+   "Variables" -> "Functions" [ label="prerequisiteTo",color=blue,penwidth=2.0 ];
+   "Variables" -> "Control Flow" [ label="prerequisiteTo",color=blue,penwidth=2.0 ];
+   "Control Flow" -> "Functions" [ label="prerequisiteTo",color=blue,penwidth=2.0 ];
    
    ### ignoring children because we don't have enough space
 
