@@ -1,0 +1,9 @@
+digraph {
+    rankdir=LR;
+
+    # hard prerequisites
+    # "Functions" -> "Recursion" [ label="prerequisiteTo" ];
+    
+    # soft prerequisites
+    "Expressions" -> "Variables" [ label="softPrerequisiteTo" ];
+}
